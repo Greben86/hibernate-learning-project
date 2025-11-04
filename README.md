@@ -1,0 +1,2 @@
+# hibernate-learning-project
+Веб-приложение на базе Spring Boot, которое использует Hibernate/JPA для доступа к базе данных PostgreSQL
