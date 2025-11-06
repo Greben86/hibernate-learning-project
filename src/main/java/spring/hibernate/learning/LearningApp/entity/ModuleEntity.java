@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "modules")
-public class Module {
+public class ModuleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +30,13 @@ public class Module {
     // Каждый модуль принадлежит одному курсу
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
-    private Course course;
+    private CourseEntity course;
 
     // Модуль содержит уроки
     @OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Lesson> lessons;
+    private List<LessonEntity> lessons;
 
     // Модуль может содержать викторину
     @OneToOne(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Quiz quiz;
+    private QuizEntity quiz;
 }

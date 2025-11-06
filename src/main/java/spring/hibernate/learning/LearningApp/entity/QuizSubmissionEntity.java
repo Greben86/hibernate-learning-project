@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "quiz_submissions")
-public class QuizSubmission {
+public class QuizSubmissionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +20,12 @@ public class QuizSubmission {
     // Тестируемый студент
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
-    private User student;
+    private UserEntity student;
 
     // Сданный тест
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    private QuizEntity quiz;
 
     @Column(columnDefinition = "NUMERIC")
     private Double score;

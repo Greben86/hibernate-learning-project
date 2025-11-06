@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "profiles")
-public class Profile {
+public class ProfileEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class Profile {
     // Внешний ключ на пользователя
     @OneToOne(fetch = FetchType.EAGER)
     @MapsId
-    private User user;
+    private UserEntity user;
 
     @Column
     @Basic(fetch = FetchType.LAZY)

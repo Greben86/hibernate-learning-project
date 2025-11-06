@@ -14,7 +14,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "courses")
-public class Course {
+public class CourseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,24 +36,24 @@ public class Course {
     // Курс принадлежит категории
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    private Category category;
+    private CategoryEntity category;
 
     // Автор курса (преподаватель)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id")
-    private User teacher;
+    private UserEntity teacher;
 
     // Коллекция модулей курса
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Module> modules;
+    private List<ModuleEntity> modules;
 
-    // Учащиеся курса через Enrollment
+    // Учащиеся курса через EnrollmentEntity
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Enrollment> enrollments;
+    private List<EnrollmentEntity> enrollments;
 
     // Список отзывов о курсе
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<CourseReview> reviews;
+    private List<CourseReviewEntity> reviews;
 
     // Теги курса
     @ManyToMany(fetch = FetchType.LAZY)
@@ -61,5 +61,5 @@ public class Course {
             name = "course_tags",
             joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> tags;
+    private Set<TagEntity> tags;
 }

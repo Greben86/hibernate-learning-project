@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "questions")
-public class Question {
+public class QuestionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +28,9 @@ public class Question {
     // Привязка к тесту
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    private QuizEntity quiz;
 
     // Возможные ответы
     @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AnswerOption> answerOptions;
+    private List<AnswerOptionEntity> answerOptions;
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "categories")
-public class Category {
+public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +27,5 @@ public class Category {
 
     // Обратная сторона отношения: список курсов в данной категории
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Course> courses;
+    private List<CourseEntity> courses;
 }

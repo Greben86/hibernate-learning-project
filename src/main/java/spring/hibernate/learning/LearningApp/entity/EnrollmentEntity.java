@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "enrollments")
-public class Enrollment {
+public class EnrollmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +20,12 @@ public class Enrollment {
     // Студент записался на курс
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User student;
+    private UserEntity student;
 
     // Привязка к курсу
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
-    private Course course;
+    private CourseEntity course;
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP")
     private LocalDateTime enrollDate;

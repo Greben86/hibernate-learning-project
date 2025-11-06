@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,25 +49,25 @@ public class User {
 
     // Ленивая загрузка профилей
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
-    private Profile profile;
+    private ProfileEntity profile;
 
     // Преподаватели ведут курсы
     @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
-    private List<Course> taughtCourses;
+    private List<CourseEntity> taughtCourses;
 
-    // Студенты участвуют в курсах через Enrollment
+    // Студенты участвуют в курсах через EnrollmentEntity
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-    private List<Enrollment> enrollments;
+    private List<EnrollmentEntity> enrollments;
 
     // Пользователь оставил отзывы о курсах
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<CourseReview> reviews;
+    private List<CourseReviewEntity> reviews;
 
     // Ответы на задания
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-    private List<Submission> submissions;
+    private List<SubmissionEntity> submissions;
 
     // Оценки за тесты
     @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-    private List<QuizSubmission> quizSubmissions;
+    private List<QuizSubmissionEntity> quizSubmissions;
 }

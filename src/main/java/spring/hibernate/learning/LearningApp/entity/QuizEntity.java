@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "quizzes")
-public class Quiz {
+public class QuizEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,13 +27,13 @@ public class Quiz {
     // Тест привязан к модулю
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id")
-    private Module module;
+    private ModuleEntity module;
 
     // Вопросы теста
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Question> questions;
+    private List<QuestionEntity> questions;
 
     // Результаты тестирования
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY)
-    private List<QuizSubmission> quizSubmissions;
+    private List<QuizSubmissionEntity> quizSubmissions;
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "assignments")
-public class Assignment {
+public class AssignmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +34,9 @@ public class Assignment {
     // Принадлежность уроку
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
+    private LessonEntity lesson;
 
     // Ответы на задание
     @OneToMany(mappedBy = "assignment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Submission> submissions;
+    private List<SubmissionEntity> submissions;
 }

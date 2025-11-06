@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "course_reviews")
-public class CourseReview {
+public class CourseReviewEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +32,12 @@ public class CourseReview {
     // Кто написал отзыв?
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
-    private User author;
+    private UserEntity author;
 
     // Какой курс оценён?
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
-    private Course course;
+    private CourseEntity course;
 
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
