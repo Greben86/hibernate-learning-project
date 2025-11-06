@@ -7,6 +7,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * Отзыв о курсе
+ */
 @Data
 @Entity
 @Table(name = "course_reviews")

@@ -6,6 +6,9 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Задание
+ */
 @Data
 @Entity
 @Table(name = "assignments")

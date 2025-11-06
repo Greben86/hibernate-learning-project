@@ -3,6 +3,9 @@ package spring.hibernate.learning.LearningApp.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+/**
+ * Вариант ответа
+ */
 @Data
 @Entity
 @Table(name = "answer_options")

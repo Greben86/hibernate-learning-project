@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Категория курсов
+ */
 @Data
 @Entity
 @Table(name = "categories")
