@@ -28,17 +28,14 @@ public record CourseDTO(
         @NotNull(message = "Дата начала курса не может быть пустым")
         LocalDate startDate,
         @Schema(description = "Длительность курса", pattern = "10")
-        @JsonSerialize(using = DurationSerializer.class)
-        @JsonDeserialize(using = DurationDeserializer.class)
-        @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT,
-                without = JsonFormat.Feature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS)
         @NotNull(message = "Длительность курса не может быть пустой")
-        Duration duration,
-        @Schema(description = "Идентификатор категории", example = "1")
-        @NotNull(message = "Идентификатор категории не может быть пустым")
-        Long category,
-        @Schema(description = "Идентификатор преподавателя", example = "1")
-        @NotNull(message = "Идентификатор преподавателя не может быть пустым")
-        Long teacher
-) {
+        Integer duration,
+        @Schema(description = "Название категории", example = "1")
+        @Size(min = 1, max = 255, message = "Название категории должно содержать от 1 до 255 символов")
+        @NotBlank(message = "Название категории не может быть пустым")
+        String category,
+        @Schema(description = "Логин преподавателя", example = "1")
+        @Size(min = 1, max = 255, message = "Логин преподавателя должен содержать от 1 до 255 символов")
+        @NotBlank(message = "Логин преподавателя не может быть пустым")
+        String teacher) {
 }

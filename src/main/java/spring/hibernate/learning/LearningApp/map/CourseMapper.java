@@ -11,11 +11,12 @@ import spring.hibernate.learning.LearningApp.entity.CourseEntity;
         unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CourseMapper {
 
+    @Mapping(target = "id", expression = "java(null)")
     @Mapping(target = "category", expression = "java(null)")
     @Mapping(target = "teacher", expression = "java(null)")
     CourseEntity toEntity(CourseDTO dto);
 
-    @Mapping(target = "category", expression = "java(entity.getCategory().getId())")
-    @Mapping(target = "teacher", expression = "java(entity.getTeacher().getId())")
+    @Mapping(target = "category", expression = "java(entity.getCategory().getName())")
+    @Mapping(target = "teacher", expression = "java(entity.getTeacher().getUsername())")
     CourseDTO fromEntity(CourseEntity entity);
 }

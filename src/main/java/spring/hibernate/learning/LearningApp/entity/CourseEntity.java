@@ -31,8 +31,8 @@ public class CourseEntity {
     @Column(columnDefinition = "DATE")
     private LocalDate startDate;
 
-    @Column(columnDefinition = "interval")
-    private Duration duration;
+    @Column
+    private Integer duration;
 
     // Курс принадлежит категории
     @ManyToOne(fetch = FetchType.LAZY)

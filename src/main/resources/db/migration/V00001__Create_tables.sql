@@ -37,7 +37,7 @@ CREATE TABLE courses (
     category_id BIGINT REFERENCES categories(id),
     teacher_id BIGINT REFERENCES users(id),
     start_date DATE,
-    duration INTERVAL
+    duration INTEGER
 );
 
 CREATE SEQUENCE courses_seq START WITH 1;
@@ -105,7 +105,7 @@ CREATE TABLE quizzes (
     id BIGINT PRIMARY KEY,
     module_id BIGINT REFERENCES modules(id),
     title VARCHAR(255) NOT NULL,
-    timelimit INTERVAL
+    timelimit INTEGER
 );
 
 CREATE SEQUENCE quizzes_seq START WITH 1;

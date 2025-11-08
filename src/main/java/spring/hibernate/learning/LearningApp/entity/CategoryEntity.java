@@ -14,13 +14,13 @@ import java.util.List;
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categories_generator")
+    @SequenceGenerator(name = "categories_generator", sequenceName = "categories_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false, unique = true)
     private String name;
 
-    // Возможно дополнительные поля, например описание
     @Column
     @Basic(fetch = FetchType.LAZY)
     private String description;

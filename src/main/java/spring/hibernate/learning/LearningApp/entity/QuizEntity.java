@@ -21,8 +21,8 @@ public class QuizEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(name = "timelimit", columnDefinition = "interval")
-    private Duration timeLimit;
+    @Column(name = "timelimit")
+    private Integer timeLimit;
 
     // Тест привязан к модулю
     @OneToOne(fetch = FetchType.LAZY)
