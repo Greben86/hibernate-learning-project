@@ -5,11 +5,12 @@ spring:
   application:
     name: LearningApp
   datasource:
-    url: "${DB_URL:jdbc:p6spy:postgresql://localhost:5432/exam_db}"
+    url: "${DB_URL:jdbc:postgresql://localhost:5432/exam_db}"
+#    url: "${DB_URL:jdbc:p6spy:postgresql://localhost:5432/exam_db}"
     username: "${DB_USERNAME:admin}"
     password: "${DB_PASSWORD:admin}"
-    driverClassName: com.p6spy.engine.spy.P6SpyDriver
-#    org.postgresql.Driver
+    driverClassName: org.postgresql.Driver
+#    driverClassName: com.p6spy.engine.spy.P6SpyDriver
   jpa:
     show-sql: true
     hibernate:

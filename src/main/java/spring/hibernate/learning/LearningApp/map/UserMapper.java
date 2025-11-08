@@ -4,8 +4,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
+import spring.hibernate.learning.LearningApp.dto.ProfileDTO;
 import spring.hibernate.learning.LearningApp.dto.SignUpRequest;
 import spring.hibernate.learning.LearningApp.dto.UserDTO;
+import spring.hibernate.learning.LearningApp.entity.ProfileEntity;
 import spring.hibernate.learning.LearningApp.entity.UserEntity;
 import spring.hibernate.learning.LearningApp.entity.UserRole;
 
@@ -21,6 +23,12 @@ public interface UserMapper {
     @Mapping(target = "createdAt", expression = "java(LocalDateTime.now())")
     UserEntity toEntity(SignUpRequest dto, String encodedPassword);
 
+    @Mapping(target = "id", expression = "java(null)")
+    @Mapping(target = "user", source = "user")
+    ProfileEntity toEntity(ProfileDTO dto, UserEntity user);
+
     @Mapping(target = "role", expression = "java(entity.getRole().getName())")
     UserDTO fromEntity(UserEntity entity);
+
+    ProfileDTO fromEntity(ProfileEntity entity);
 }

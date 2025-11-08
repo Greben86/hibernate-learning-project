@@ -7,12 +7,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import spring.hibernate.learning.LearningApp.dto.ProfileDTO;
 import spring.hibernate.learning.LearningApp.dto.SignUpRequest;
 import spring.hibernate.learning.LearningApp.dto.UserDTO;
+import spring.hibernate.learning.LearningApp.entity.ProfileEntity;
 import spring.hibernate.learning.LearningApp.entity.UserEntity;
 import spring.hibernate.learning.LearningApp.entity.UserRole;
 import spring.hibernate.learning.LearningApp.exception.LogicException;
 import spring.hibernate.learning.LearningApp.map.UserMapper;
+import spring.hibernate.learning.LearningApp.repository.ProfileRepository;
 import spring.hibernate.learning.LearningApp.repository.UserRepository;
 
 import java.util.List;
@@ -26,6 +29,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository repository;
+    private final ProfileRepository profileRepository;
     private final UserMapper mapper;
 
     /**
@@ -70,18 +74,35 @@ public class UserService {
      *
      * @return пользователь
      */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public UserDTO saveUser(@Valid final UserDTO request) {
-        final var user = getCurrentUser();
-        if (repository.existsByUsername(request.username())) {
-            throw new LogicException("Пользователь с таким именем уже существует");
-        }
-
+        final var user = getByUsername(request.username());
         user.setUsername(request.username());
-        user.setEmail(request.email());
         user.setRole(UserRole.of(request.role()));
         repository.save(user);
 
         return mapper.fromEntity(user);
+    }
+
+    /**
+     * Обновление профиля
+     *
+     * @return пользователь
+     */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public ProfileDTO updateProfile(@Valid final ProfileDTO dto) {
+        final var user = getCurrentUser();
+        ProfileEntity profile;
+        if ((profile = user.getProfile()) != null) {
+            profile.setEmail(dto.email());
+            profile.setBio(dto.bio());
+            profile.setAvatarUrl(dto.avatarUrl());
+        } else {
+            profile = mapper.toEntity(dto, user);
+            user.setProfile(profile);
+        }
+
+        return mapper.fromEntity(profileRepository.save(profile));
     }
 
     /**
@@ -136,10 +157,16 @@ public class UserService {
      *
      * @param id идентификатор пользователя
      */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void setAdmin(final Long id) {
         final var user = repository.findById(id)
                 .orElseThrow(() -> new LogicException("Пользователь не найден"));
         user.setRole(UserRole.ADMIN);
         repository.save(user);
+    }
+
+    public ProfileDTO getProfile() {
+        final var user = getCurrentUser();
+        return mapper.fromEntity(user.getProfile());
     }
 }

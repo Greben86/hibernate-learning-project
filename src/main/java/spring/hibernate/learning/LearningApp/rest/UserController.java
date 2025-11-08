@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import spring.hibernate.learning.LearningApp.dto.ProfileDTO;
 import spring.hibernate.learning.LearningApp.dto.UserDTO;
 import spring.hibernate.learning.LearningApp.service.UserService;
 
@@ -35,9 +36,10 @@ public class UserController {
     @PutMapping(value = "/user/edit",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO editUser(@RequestBody UserDTO userDTO) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public UserDTO editUser(@RequestBody UserDTO dto) {
         log.info("Редактирование пользователя");
-        return userService.saveUser(userDTO);
+        return userService.saveUser(dto);
     }
 
     @Operation(summary = "Список всех пользователей, кроме администраторов")
@@ -67,5 +69,24 @@ public class UserController {
         log.info("Добавление роли ADMIN пользователю");
         userService.setAdmin(id);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Редактирование профиля")
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping(value = "/user/profile",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ProfileDTO editProfile(@RequestBody ProfileDTO dto) {
+        log.info("Редактирование профиля");
+        return userService.updateProfile(dto);
+    }
+
+    @Operation(summary = "Просмотр профиля")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/user/profile",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ProfileDTO getProfile() {
+        log.info("Просмотр профиля");
+        return userService.getProfile();
     }
 }

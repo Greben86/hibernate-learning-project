@@ -18,11 +18,6 @@ public record SignUpRequest(
         @NotBlank(message = "Пароль не может быть пустыми")
         String password,
 
-        @Schema(description = "Email пользователя", example = "your_email@example.com")
-        @Email(message = "Адрес Email должен быть валидным")
-        @NotBlank(message = "Поле не может быть пустым")
-        String email,
-
         @Schema(description = "Роль пользователя", example = "Студент")
         @Pattern(regexp = "^Студент|Преподаватель$",
                 message = "Роль пользователя может быть только \"Студент\" или \"Преподаватель\"")

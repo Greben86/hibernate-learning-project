@@ -37,9 +37,6 @@ public class UserEntity implements UserDetails {
     @Column(name = "name", nullable = false)
     private String username;
 
-    @Column(unique = true, nullable = false)
-    private String email;
-
     // Тип перечисления для роли
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
@@ -54,7 +51,7 @@ public class UserEntity implements UserDetails {
     private LocalDateTime createdAt;
 
     // Ленивая загрузка профилей
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
     private ProfileEntity profile;
 
     // Преподаватели ведут курсы

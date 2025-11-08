@@ -12,13 +12,16 @@ import lombok.Data;
 public class ProfileEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profiles_generator")
+    @SequenceGenerator(name = "profiles_generator", sequenceName = "profiles_seq", allocationSize = 1)
     private Long id;
 
     // Внешний ключ на пользователя
     @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
     private UserEntity user;
+
+    @Column(unique = true, nullable = false)
+    private String email;
 
     @Column
     @Basic(fetch = FetchType.LAZY)
