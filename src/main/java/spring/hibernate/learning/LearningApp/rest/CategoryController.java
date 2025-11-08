@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,7 @@ public class CategoryController {
     @Operation(summary = "Зарегистрировать категорию")
     @PostMapping("/category")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public CategoryDTO addCourse(@RequestBody @Valid CategoryDTO dto) {
         log.info("Регистрация категории");
         return service.addCategory(dto);
@@ -57,6 +59,7 @@ public class CategoryController {
     @Operation(summary = "Удалить категорию")
     @DeleteMapping("/category/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteCourse(@PathVariable Long id) {
         log.info("Удаление категории");
         service.delete(id);
