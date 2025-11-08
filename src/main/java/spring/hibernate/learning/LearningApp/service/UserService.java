@@ -1,5 +1,6 @@
 package spring.hibernate.learning.LearningApp.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,7 +39,7 @@ public class UserService {
             throw new LogicException("Пользователь с таким именем уже существует");
         }
 
-        final var user = mapper.from(request, encodedPassword);
+        final var user = mapper.toEntity(request, encodedPassword);
 
         return repository.save(user);
     }
@@ -69,7 +70,7 @@ public class UserService {
      *
      * @return пользователь
      */
-    public UserDTO saveUser(final UserDTO request) {
+    public UserDTO saveUser(@Valid final UserDTO request) {
         final var user = getCurrentUser();
         if (repository.existsByUsername(request.username())) {
             throw new LogicException("Пользователь с таким именем уже существует");
@@ -80,7 +81,7 @@ public class UserService {
         user.setRole(UserRole.of(request.role()));
         repository.save(user);
 
-        return mapper.to(user);
+        return mapper.fromEntity(user);
     }
 
     /**
@@ -126,7 +127,7 @@ public class UserService {
      */
     public List<UserDTO> getAllUsers() {
         return repository.findByRoleNot(UserRole.ADMIN).stream()
-                .map(mapper::to)
+                .map(mapper::fromEntity)
                 .toList();
     }
 

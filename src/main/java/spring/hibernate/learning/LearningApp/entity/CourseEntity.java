@@ -17,7 +17,8 @@ import java.util.Set;
 public class CourseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "courses_generator")
+    @SequenceGenerator(name = "courses_generator", sequenceName = "courses_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

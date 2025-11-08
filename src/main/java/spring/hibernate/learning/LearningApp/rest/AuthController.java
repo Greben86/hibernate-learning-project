@@ -2,7 +2,6 @@ package spring.hibernate.learning.LearningApp.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ public class AuthController {
     @PostMapping(value = "/sign/up",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) {
+    public JwtAuthenticationResponse signUp(@RequestBody SignUpRequest request) {
         log.info("Регистрация пользователя {}", request.username());
         return authenticationService.signUp(request);
     }
@@ -43,7 +42,7 @@ public class AuthController {
     @PostMapping(value = "/sign/in",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) {
+    public JwtAuthenticationResponse signIn(@RequestBody SignInRequest request) {
         log.info("Авторизация пользователя {}", request.username());
         return authenticationService.signIn(request);
     }
@@ -53,7 +52,7 @@ public class AuthController {
     @PutMapping(value = "/password/change",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public JwtAuthenticationResponse passwordChange(@RequestBody @Valid ChangePasswordRequest request) {
+    public JwtAuthenticationResponse passwordChange(@RequestBody ChangePasswordRequest request) {
         log.info("Смена пароля пользователя");
         return authenticationService.passwordChange(request);
     }

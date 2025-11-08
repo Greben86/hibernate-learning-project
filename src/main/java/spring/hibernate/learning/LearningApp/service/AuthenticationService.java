@@ -1,5 +1,6 @@
 package spring.hibernate.learning.LearningApp.service;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +30,7 @@ public class AuthenticationService {
      * @param request данные пользователя
      * @return токен
      */
-    public JwtAuthenticationResponse signUp(SignUpRequest request) {
+    public JwtAuthenticationResponse signUp(@Valid final SignUpRequest request) {
         final var user = userService.addUser(request, passwordEncoder.encode(request.password()));
         final var jwt = jwtService.generateToken(user);
         return new JwtAuthenticationResponse(jwt);
@@ -41,7 +42,7 @@ public class AuthenticationService {
      * @param request данные пользователя
      * @return токен
      */
-    public JwtAuthenticationResponse signIn(SignInRequest request) {
+    public JwtAuthenticationResponse signIn(@Valid final SignInRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.username(),
                 request.password()
@@ -61,7 +62,7 @@ public class AuthenticationService {
      * @param request новый пароль
      * @return токен
      */
-    public JwtAuthenticationResponse passwordChange(ChangePasswordRequest request) {
+    public JwtAuthenticationResponse passwordChange(@Valid final ChangePasswordRequest request) {
         final var user = userService.getCurrentUser();
         final var newPassword = passwordEncoder.encode(request.password());
         if (newPassword.equals(user.getPassword())) {

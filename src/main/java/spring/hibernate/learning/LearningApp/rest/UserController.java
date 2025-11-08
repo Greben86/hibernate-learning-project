@@ -2,7 +2,6 @@ package spring.hibernate.learning.LearningApp.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,25 +24,25 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("user")
+@RequestMapping("api/users")
 @Tag(name = "REST API: Пользователь")
 public class UserController {
 
     private final UserService userService;
 
-    @Operation(summary = "Редактирование имени пользователя")
+    @Operation(summary = "Редактирование пользователя")
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping(value = "/edit",
+    @PutMapping(value = "/user/edit",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO editUser(@RequestBody @Valid UserDTO userDTO) {
-        log.info("Редактирование имени пользователя");
+    public UserDTO editUser(@RequestBody UserDTO userDTO) {
+        log.info("Редактирование пользователя");
         return userService.saveUser(userDTO);
     }
 
     @Operation(summary = "Список всех пользователей, кроме администраторов")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/all",
+    @GetMapping(value = {"", "/"},
             produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public List<UserDTO> getUsers() {
@@ -53,7 +52,7 @@ public class UserController {
 
     @Operation(summary = "Удаление пользователя")
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping(value = "/{id}/delete")
+    @DeleteMapping(value = "/user/{id}/delete")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         log.info("Удаление пользователя");
@@ -61,7 +60,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}/set-admin")
+    @PutMapping("/user/{id}/set-admin")
     @Operation(summary = "Добавить роль ADMIN пользователю")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> getAdmin(@PathVariable("id") Long id) {

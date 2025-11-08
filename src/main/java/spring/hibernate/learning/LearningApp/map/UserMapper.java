@@ -19,8 +19,8 @@ public interface UserMapper {
     @Mapping(target = "password", source = "encodedPassword")
     @Mapping(target = "role", expression = "java(UserRole.of(dto.role()))")
     @Mapping(target = "createdAt", expression = "java(LocalDateTime.now())")
-    UserEntity from(SignUpRequest dto, String encodedPassword);
+    UserEntity toEntity(SignUpRequest dto, String encodedPassword);
 
     @Mapping(target = "role", expression = "java(entity.getRole().getName())")
-    UserDTO to(UserEntity entity);
+    UserDTO fromEntity(UserEntity entity);
 }
