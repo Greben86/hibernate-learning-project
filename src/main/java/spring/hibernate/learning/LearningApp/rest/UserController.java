@@ -2,6 +2,7 @@ package spring.hibernate.learning.LearningApp.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
-    public UserDTO editUser(@RequestBody UserDTO dto) {
+    public UserDTO editUser(@RequestBody @Valid UserDTO dto) {
         log.info("Редактирование пользователя");
         return userService.saveUser(dto);
     }
@@ -76,7 +77,7 @@ public class UserController {
     @PutMapping(value = "/user/profile",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ProfileDTO editProfile(@RequestBody ProfileDTO dto) {
+    public ProfileDTO editProfile(@RequestBody @Valid ProfileDTO dto) {
         log.info("Редактирование профиля");
         return userService.updateProfile(dto);
     }

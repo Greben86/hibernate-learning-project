@@ -45,8 +45,8 @@ public class ErrorAdvice {
      * @return ответ со статусом 418
      */
     @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
-    @ExceptionHandler(LogicException.class)
-    public List<String> handleLogicErrors(final LogicException ex) {
+    @ExceptionHandler({LogicException.class, NullPointerException.class})
+    public List<String> handleLogicErrors(final Exception ex) {
         return List.of(ex.getMessage());
     }
 

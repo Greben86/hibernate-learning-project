@@ -1,8 +1,6 @@
 package spring.hibernate.learning.LearningApp.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,12 +14,11 @@ import java.time.LocalDateTime;
 public class CourseReviewEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_reviews_generator")
+    @SequenceGenerator(name = "course_reviews_generator", sequenceName = "course_reviews_seq", allocationSize = 1)
     private Long id;
 
     // Рейтинг курса (например, 1-5 звезд)
-    @Min(1)
-    @Max(5)
     @Column(nullable = false)
     private Integer rating;
 

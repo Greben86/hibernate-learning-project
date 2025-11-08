@@ -1,14 +1,15 @@
 package spring.hibernate.learning.LearningApp.service;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import spring.hibernate.learning.LearningApp.dto.CourseDTO;
+import spring.hibernate.learning.LearningApp.dto.CourseReviewDTO;
 import spring.hibernate.learning.LearningApp.map.CourseMapper;
 import spring.hibernate.learning.LearningApp.repository.CategoryRepository;
 import spring.hibernate.learning.LearningApp.repository.CourseRepository;
+import spring.hibernate.learning.LearningApp.repository.CourseReviewRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
+    private final CourseReviewRepository courseReviewRepository;
     private final UserService userService;
     private final CourseMapper mapper;
 
@@ -33,7 +35,7 @@ public class CourseService {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public CourseDTO addCourse(@Valid CourseDTO dto) {
+    public CourseDTO addCourse(CourseDTO dto) {
         final var newCourse = mapper.toEntity(dto);
         final var teacher = Objects.requireNonNull(userService.getByUsername(dto.teacher()),
                 "Пользователь " + dto.teacher() + " не найден");
@@ -47,5 +49,22 @@ public class CourseService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void delete(Long id) {
         courseRepository.deleteById(id);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public CourseReviewDTO addReview(Long id, CourseReviewDTO dto) {
+        final var user = userService.getCurrentUser();
+        final var course = courseRepository.getReferenceById(id);
+        final var review = mapper.toEntity(dto, course, user);
+        courseReviewRepository.save(review);
+
+        return mapper.fromEntity(review);
+    }
+
+    public List<CourseReviewDTO> getReviews(Long id) {
+        final var course = courseRepository.getReferenceById(id);
+        return courseReviewRepository.findByCourse(course).stream()
+                .map(mapper::fromEntity)
+                .toList();
     }
 }

@@ -1,6 +1,5 @@
 package spring.hibernate.learning.LearningApp.service;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -29,7 +28,7 @@ public class CategoryService {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public CategoryDTO addCategory(@Valid CategoryDTO dto) {
+    public CategoryDTO addCategory(CategoryDTO dto) {
         final var newCategory = mapper.toEntity(dto);
         return mapper.fromEntity(categoryRepository.save(newCategory));
     }

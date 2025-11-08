@@ -1,6 +1,5 @@
 package spring.hibernate.learning.LearningApp.service;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -75,7 +74,7 @@ public class UserService {
      * @return пользователь
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public UserDTO saveUser(@Valid final UserDTO request) {
+    public UserDTO saveUser(final UserDTO request) {
         final var user = getByUsername(request.username());
         user.setUsername(request.username());
         user.setRole(UserRole.of(request.role()));
@@ -90,7 +89,7 @@ public class UserService {
      * @return пользователь
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public ProfileDTO updateProfile(@Valid final ProfileDTO dto) {
+    public ProfileDTO updateProfile(final ProfileDTO dto) {
         final var user = getCurrentUser();
         ProfileEntity profile;
         if ((profile = user.getProfile()) != null) {

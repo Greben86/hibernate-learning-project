@@ -2,6 +2,7 @@ package spring.hibernate.learning.LearningApp.rest;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class CategoryController {
     @Operation(summary = "Зарегистрировать категорию")
     @PostMapping("/category")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryDTO addCourse(@RequestBody CategoryDTO dto) {
+    public CategoryDTO addCourse(@RequestBody @Valid CategoryDTO dto) {
         log.info("Регистрация категории");
         return service.addCategory(dto);
     }

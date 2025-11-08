@@ -1,16 +1,11 @@
 package spring.hibernate.learning.LearningApp.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.DurationDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.DurationSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.Duration;
 import java.time.LocalDate;
 
 @Schema(description = "Курс")
@@ -23,7 +18,7 @@ public record CourseDTO(
         String title,
         @Schema(description = "Описание курса", example = "Курс математики...")
         String description,
-        @Schema(description = "Дата начала курса", pattern = "dd-MM-yyyy")
+        @Schema(description = "Дата начала курса", pattern = "01-01-2026")
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone="Europe/Moscow")
         @NotNull(message = "Дата начала курса не может быть пустым")
         LocalDate startDate,
