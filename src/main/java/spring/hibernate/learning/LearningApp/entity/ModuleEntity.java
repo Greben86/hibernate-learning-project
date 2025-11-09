@@ -14,7 +14,8 @@ import java.util.List;
 public class ModuleEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "modules_generator")
+    @SequenceGenerator(name = "modules_generator", sequenceName = "modules_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

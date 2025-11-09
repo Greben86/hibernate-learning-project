@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class SubmissionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "submissions_generator")
+    @SequenceGenerator(name = "submissions_generator", sequenceName = "submissions_seq", allocationSize = 1)
     private Long id;
 
     // Решение связано с заданием

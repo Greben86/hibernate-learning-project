@@ -3,7 +3,6 @@ package spring.hibernate.learning.LearningApp.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.Duration;
 import java.util.List;
 
 /**

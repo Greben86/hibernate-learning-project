@@ -14,7 +14,8 @@ import java.util.List;
 public class LessonEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessons_generator")
+    @SequenceGenerator(name = "lessons_generator", sequenceName = "lessons_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

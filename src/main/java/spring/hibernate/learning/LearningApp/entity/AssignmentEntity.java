@@ -15,7 +15,8 @@ import java.util.List;
 public class AssignmentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "assignments_generator")
+    @SequenceGenerator(name = "assignments_generator", sequenceName = "assignments_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

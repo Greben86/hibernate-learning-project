@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import spring.hibernate.learning.LearningApp.dto.CourseDTO;
 import spring.hibernate.learning.LearningApp.dto.CourseReviewDTO;
-import spring.hibernate.learning.LearningApp.dto.EnrollmentDTO;
 import spring.hibernate.learning.LearningApp.entity.TagEntity;
 import spring.hibernate.learning.LearningApp.map.CourseMapper;
 import spring.hibernate.learning.LearningApp.repository.CategoryRepository;
