@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
     Optional<CourseEntity> findByTitle(String title);
 
-    @Query("SELECT c FROM CourseEntity c WHERE (SELECT t FROM TagEntity t WHERE t.name = ?1) IN (c.tags)")
+    @Query("SELECT DISTINCT c FROM CourseEntity c INNER JOIN c.tags t WHERE t.name = ?1")
     List<CourseEntity> findByTagName(String tag);
 }
