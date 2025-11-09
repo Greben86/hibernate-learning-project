@@ -1,32 +1,32 @@
 version: "3.8"
 services:
-#  backendservice:
-#    container_name: backend-service
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    environment:
-#      DB_URL: jdbc:postgresql://postgres:5432/exam_db
-#      DB_USERNAME: admin
-#      DB_PASSWORD: admin
-#    ports:
-#      - "8080:8080"
-#    restart: unless-stopped
-#    deploy:
-#      resources:
-#        limits:
-#          cpus: '4'
-#          memory: 1G
-#    healthcheck:
-#      test: ["CMD", "curl", "-f", "http://backendservice:8080/actuator/health"]
-#      interval: 10s
-#      timeout: 5s
-#      retries: 5
-#      start_period: 10s
-#    networks:
-#      - application-network
-#    depends_on:
-#      - postgres
+  backendservice:
+    container_name: backend-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/exam_db
+      DB_USERNAME: admin
+      DB_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://backendservice:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - application-network
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres:17.0-alpine3.20

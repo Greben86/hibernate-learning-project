@@ -31,6 +31,12 @@ public class UserService {
     private final ProfileRepository profileRepository;
     private final UserMapper mapper;
 
+    public UserDTO getById(final Long id) {
+        return repository.findById(id)
+                .map(mapper::fromEntity)
+                .orElse(null);
+    }
+
     /**
      * Создание пользователя
      *

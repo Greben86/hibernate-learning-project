@@ -21,7 +21,7 @@ import spring.hibernate.learning.LearningApp.service.AuthenticationService;
 
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Tag(name = "REST API: Аутентификация")
 public class AuthController {

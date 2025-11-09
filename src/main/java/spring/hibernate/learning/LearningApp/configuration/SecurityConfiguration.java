@@ -49,7 +49,7 @@ public class SecurityConfiguration {
                         // Можно указать конкретный путь,
                         // * - 1 уровень вложенности,
                         // ** - любое количество уровней вложенности
-                        .requestMatchers("/auth/sign/*").permitAll()
+                        .requestMatchers("/api/auth/sign/*").permitAll()
                         .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/swagger-resources/*", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())

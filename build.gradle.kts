@@ -22,6 +22,7 @@ repositories {
 val jsonwebtokenVersion = "0.12.3"
 val openApiVersion = "2.8.14"
 val mapstructVersion = "1.6.3"
+val mockitoVersion = "5.14.0"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -40,19 +41,17 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
     runtimeOnly("org.postgresql:postgresql")
-    implementation("p6spy:p6spy:3.9.1")
-//    testImplementation("org.springframework.boot:spring-boot-starter-test")
-//	testImplementation("org.springframework.boot:spring-boot-testcontainers")
-//	testImplementation("org.testcontainers:junit-jupiter")
-//	testImplementation("org.testcontainers:postgresql")
-//	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.mockito:mockito-core:${mockitoVersion}")
+    testImplementation("com.h2database:h2")
 
     annotationProcessor(group = "org.projectlombok", name = "lombok")
     annotationProcessor(group = "org.mapstruct", name = "mapstruct-processor", version = mapstructVersion)
 }
 
-//tasks.withType<Test> {
-//	useJUnitPlatform()
-//}
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
 
 

@@ -65,11 +65,21 @@ public class UserController {
 
     @PutMapping("/user/{id}/set-admin")
     @Operation(summary = "Добавить роль ADMIN пользователю")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> getAdmin(@PathVariable("id") Long id) {
         log.info("Добавление роли ADMIN пользователю");
         userService.setAdmin(id);
         return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Информация о пользователе")
+    @GetMapping("/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
+    public UserDTO getById(@PathVariable Long id) {
+        log.info("Информация о пользователе");
+        return userService.getById(id);
     }
 
     @Operation(summary = "Редактирование профиля")

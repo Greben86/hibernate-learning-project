@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/lessons")
 @RequiredArgsConstructor
-@Tag(name = "REST API: Модули")
+@Tag(name = "REST API: Занятия")
 public class LessonController {
 
     private final LessonService lessonService;
