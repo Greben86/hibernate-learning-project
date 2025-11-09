@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import spring.hibernate.learning.LearningApp.dto.CourseDTO;
@@ -106,6 +107,40 @@ public class CourseController {
     public void deleteEnrollment(@PathVariable Long id) {
         log.info("Удалить запись на курс");
         enrollmentService.delete(id);
+    }
+
+    @Operation(summary = "Список тегов курса")
+    @GetMapping("/course/{id}/tag")
+    @ResponseStatus(HttpStatus.OK)
+    public List<String> getTags(@PathVariable Long id) {
+        log.info("Список тегов курса");
+        return courseService.getTags(id);
+    }
+
+    @Operation(summary = "Добавить тег для курса")
+    @PutMapping("/course/{id}/tag")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<String> addTag(@PathVariable Long id, @RequestParam("tag") String tag) {
+        log.info("Добавить тег для курса");
+        return courseService.addTag(id, tag);
+    }
+
+    @Operation(summary = "Убрать тег у курса")
+    @DeleteMapping("/course/{id}/tag")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<String> deleteTag(@PathVariable Long id, @RequestParam("tag") String tag) {
+        log.info("Убрать тег у курса");
+        return courseService.deleteTag(id, tag);
+    }
+
+    @Operation(summary = "Поиск курсов по тегу")
+    @GetMapping("/find")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CourseDTO> findByTag(@RequestParam("tag") String tag) {
+        log.info("Поиск курсов по тегу");
+        return courseService.findByTag(tag);
     }
 
     @Operation(summary = "Удалить курс")

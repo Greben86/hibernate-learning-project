@@ -6,10 +6,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import spring.hibernate.learning.LearningApp.dto.CourseDTO;
 import spring.hibernate.learning.LearningApp.dto.CourseReviewDTO;
+import spring.hibernate.learning.LearningApp.dto.EnrollmentDTO;
+import spring.hibernate.learning.LearningApp.entity.TagEntity;
 import spring.hibernate.learning.LearningApp.map.CourseMapper;
 import spring.hibernate.learning.LearningApp.repository.CategoryRepository;
 import spring.hibernate.learning.LearningApp.repository.CourseRepository;
 import spring.hibernate.learning.LearningApp.repository.CourseReviewRepository;
+import spring.hibernate.learning.LearningApp.repository.TagRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +24,7 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final CategoryRepository categoryRepository;
     private final CourseReviewRepository courseReviewRepository;
+    private final TagRepository tagRepository;
     private final UserService userService;
     private final CourseMapper mapper;
 
@@ -64,6 +68,47 @@ public class CourseService {
     public List<CourseReviewDTO> getReviews(Long id) {
         final var course = courseRepository.getReferenceById(id);
         return courseReviewRepository.findByCourse(course).stream()
+                .map(mapper::fromEntity)
+                .toList();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<String> addTag(Long id, String tag) {
+        final var course = courseRepository.getReferenceById(id);
+        final var tags = course.getTags();
+        final var tagEntity = tagRepository.findByName(tag)
+                .orElse(TagEntity.builder()
+                        .name(tag)
+                        .build());
+        tags.add(tagEntity);
+        tagRepository.save(tagEntity);
+        courseRepository.save(course);
+        return tags.stream()
+                .map(TagEntity::getName)
+                .toList();
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public List<String> deleteTag(Long id, String tag) {
+        final var course = courseRepository.getReferenceById(id);
+        final var tags = course.getTags();
+        tagRepository.findByName(tag).ifPresent(tags::remove);
+        courseRepository.save(course);
+        return tags.stream()
+                .map(TagEntity::getName)
+                .toList();
+    }
+
+    public List<String> getTags(Long id) {
+        final var course = courseRepository.getReferenceById(id);
+        final var tags = course.getTags();
+        return tags.stream()
+                .map(TagEntity::getName)
+                .toList();
+    }
+
+    public List<CourseDTO> findByTag(String tag) {
+        return courseRepository.findByTagName(tag).stream()
                 .map(mapper::fromEntity)
                 .toList();
     }

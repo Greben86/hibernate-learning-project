@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import spring.hibernate.learning.LearningApp.dto.CategoryDTO;
-import spring.hibernate.learning.LearningApp.dto.CourseDTO;
 import spring.hibernate.learning.LearningApp.service.CategoryService;
-import spring.hibernate.learning.LearningApp.service.CourseService;
 
 import java.util.List;
 
