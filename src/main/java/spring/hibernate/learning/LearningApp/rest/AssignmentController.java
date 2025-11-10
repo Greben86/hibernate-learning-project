@@ -46,7 +46,7 @@ public class AssignmentController {
 
     @Operation(summary = "Добавить задание")
     @PostMapping("/assignment")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('TEACHER')")
     public AssignmentDTO create(@RequestBody AssignmentDTO dto) {
         log.info("Добавить задание");

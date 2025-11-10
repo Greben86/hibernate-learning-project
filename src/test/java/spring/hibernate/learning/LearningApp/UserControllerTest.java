@@ -60,51 +60,47 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.username").value("Viktor"));
     }
 
-//    @Order(2)
-//    @DisplayName("Тест добавления прав администратора")
-//    @Test
-//    void setAdmin() throws Exception {
-//        final var token = TestUtils.signIn(mockMvc, "root", "password123");
-//
-//        mockMvc.perform(MockMvcRequestBuilders.put("/api/users/user/2/set-admin")
-//                        .header(HEADER_NAME, BEARER_PREFIX + token)
-//                        .accept(MediaType.APPLICATION_JSON_VALUE)
-//                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-//                .andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.status().isNoContent());
-//    }
+    @Order(2)
+    @DisplayName("Тест просмотра списка пользователей")
+    @Test
+    void getAll() throws Exception {
+        final var token = TestUtils.signIn(mockMvc, "root", "password123");
 
-//    @Order(3)
-//    @DisplayName("Тест просмотра списка пользователей")
-//    @Test
-//    void getAll() throws Exception {
-//        final var token = TestUtils.signIn(mockMvc, "root", "password123");
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/api/users")
-//                        .header(HEADER_NAME, BEARER_PREFIX + token)
-//                        .accept(MediaType.APPLICATION_JSON_VALUE)
-//                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-//                .andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].username").value("root"))
-//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].username").value("Viktor"));
-//    }
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/users")
+                        .header(HEADER_NAME, BEARER_PREFIX + token)
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].username").value("Viktor"));
+    }
 
-//    @Order(4)
-//    @DisplayName("Тест удаления пользователя")
-//    @Test
-//    void deleteUser() throws Exception {
-//        final var token = TestUtils.signIn(mockMvc, "root", "password123");
-//
-//        mockMvc.perform(MockMvcRequestBuilders.delete("/api/users/user")
-//                        .header(HEADER_NAME, BEARER_PREFIX + token)
-//                        .accept(MediaType.APPLICATION_JSON_VALUE)
-//                        .content("{\"username\":\"Viktor\", \"password\":\"password123\"}")
-//                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-//                .andDo(MockMvcResultHandlers.print())
-//                .andExpect(MockMvcResultMatchers.status().isNoContent());
-//    }
+    @Order(3)
+    @DisplayName("Тест добавления прав администратора")
+    @Test
+    void setAdmin() throws Exception {
+        final var token = TestUtils.signIn(mockMvc, "root", "password123");
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/users/user/2/set-admin")
+                        .header(HEADER_NAME, BEARER_PREFIX + token)
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Order(4)
+    @DisplayName("Тест удаления пользователя")
+    @Test
+    void deleteUser() throws Exception {
+        final var token = TestUtils.signIn(mockMvc, "root", "password123");
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/users/user/2")
+                        .header(HEADER_NAME, BEARER_PREFIX + token))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 
     @Order(5)
     @DisplayName("Тест ошибки доступа")

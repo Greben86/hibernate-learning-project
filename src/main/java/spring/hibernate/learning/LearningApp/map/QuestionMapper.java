@@ -6,13 +6,16 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 import spring.hibernate.learning.LearningApp.dto.QuestionDTO;
 import spring.hibernate.learning.LearningApp.entity.QuestionEntity;
+import spring.hibernate.learning.LearningApp.entity.QuestionType;
 import spring.hibernate.learning.LearningApp.entity.QuizEntity;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE)
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        imports = QuestionType.class)
 public interface QuestionMapper {
 
     @Mapping(target = "id", expression = "java(null)")
+    @Mapping(target = "type", expression = "java(QuestionType.of(dto.type()))")
     @Mapping(target = "quiz", source = "quiz")
     QuestionEntity toEntity(QuestionDTO dto, QuizEntity quiz);
 

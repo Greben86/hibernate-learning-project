@@ -47,9 +47,9 @@ public class CategoryController {
 
     @Operation(summary = "Зарегистрировать категорию")
     @PostMapping("/category")
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN')")
-    public CategoryDTO addCourse(@RequestBody @Valid CategoryDTO dto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('TEACHER')")
+    public CategoryDTO addCategory(@RequestBody @Valid CategoryDTO dto) {
         log.info("Регистрация категории");
         return service.addCategory(dto);
     }

@@ -47,7 +47,7 @@ public class LessonController {
 
     @Operation(summary = "Добавить занятие")
     @PostMapping("/lesson")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('TEACHER')")
     public LessonDTO create(@RequestBody LessonDTO dto) {
         log.info("Добавить занятие");

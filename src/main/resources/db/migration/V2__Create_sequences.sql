@@ -34,6 +34,9 @@ CREATE SEQUENCE questions_seq START WITH 1;
 -- Варианты ответов (AnswerOption)
 CREATE SEQUENCE answer_options_seq START WITH 1;
 
+-- Ответы студента на вопрос теста (QuizAnswer)
+CREATE SEQUENCE quiz_answers_seq START WITH 1;
+
 -- Результаты прохождения тестов (QuizSubmission)
 CREATE SEQUENCE quiz_submissions_seq START WITH 1;
 

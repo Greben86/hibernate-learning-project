@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class QuizSubmissionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quiz_submissions_generator")
+    @SequenceGenerator(name = "quiz_submissions_generator", sequenceName = "quiz_submissions_seq", allocationSize = 1)
     private Long id;
 
     // Тестируемый студент

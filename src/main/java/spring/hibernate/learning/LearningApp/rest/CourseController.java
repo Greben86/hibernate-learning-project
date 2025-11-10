@@ -53,8 +53,8 @@ public class CourseController {
 
     @Operation(summary = "Зарегистрировать курс")
     @PostMapping("/course")
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ADMIN')")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('TEACHER')")
     public CourseDTO addCourse(@RequestBody @Valid CourseDTO dto) {
         log.info("Регистрация курса");
         return courseService.addCourse(dto);

@@ -6,7 +6,7 @@ WORKDIR /app
 RUN gradle build
 
 # Родительский образ контейнера с java внутри
-FROM eclipse-temurin AS run
+FROM eclipse-temurin:21-jre-alpine-3.22 AS run
 LABEL authors="viktor"
 RUN mkdir /app
 WORKDIR /app

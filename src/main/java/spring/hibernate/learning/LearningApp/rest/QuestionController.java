@@ -50,7 +50,7 @@ public class QuestionController {
 
     @Operation(summary = "Добавить вопрос")
     @PostMapping("/question")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('TEACHER')")
     public QuestionDTO create(@RequestBody QuestionDTO dto) {
         log.info("Добавить вопрос");
@@ -89,7 +89,7 @@ public class QuestionController {
 
     @Operation(summary = "Добавить вариант")
     @PostMapping("/answer")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public AnswerOptionDTO addSubmission(@RequestBody AnswerOptionDTO dto) {
         log.info("Добавить вариант");
         return answerOptionService.addQuestion(dto);

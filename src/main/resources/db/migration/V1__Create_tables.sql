@@ -106,6 +106,14 @@ CREATE TABLE answer_options (
     is_correct BOOLEAN DEFAULT FALSE
 );
 
+-- Ответы студента на вопрос теста (QuizAnswer)
+CREATE TABLE quiz_answers (
+    id BIGINT PRIMARY KEY,
+    question_id BIGINT REFERENCES questions(id),
+    student_id BIGINT REFERENCES users(id),
+    option_id BIGINT REFERENCES answer_options(id)
+);
+
 -- Результаты прохождения тестов (QuizSubmission)
 CREATE TABLE quiz_submissions (
     id BIGINT PRIMARY KEY,

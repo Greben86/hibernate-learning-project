@@ -3,6 +3,7 @@ package spring.hibernate.learning.LearningApp.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +11,9 @@ import java.time.LocalDateTime;
 public record SubmissionDTO(
         @Schema(description = "Идентификатор ответа", example = "1")
         Long id,
+        @Schema(description = "Название задания", example = "Задание")
+        @Size(min = 1, max = 255, message = "Название задания должно содержать от 1 до 255 символов")
+        @NotBlank(message = "Поле не может быть пустым")
         String assignment,
         @Schema(description = "Логин студента", example = "Вася")
         String student,

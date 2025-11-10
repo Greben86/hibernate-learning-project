@@ -12,7 +12,8 @@ import lombok.Data;
 public class AnswerOptionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "answer_options_generator")
+    @SequenceGenerator(name = "answer_options_generator", sequenceName = "answer_options_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

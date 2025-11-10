@@ -46,7 +46,7 @@ public class ModuleController {
 
     @Operation(summary = "Добавить модуль")
     @PostMapping("/module")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('TEACHER')")
     public ModuleDTO create(@RequestBody ModuleDTO dto) {
         log.info("Добавить модуль");

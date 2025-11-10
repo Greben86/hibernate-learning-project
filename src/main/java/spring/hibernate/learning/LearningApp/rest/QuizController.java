@@ -50,7 +50,7 @@ public class QuizController {
 
     @Operation(summary = "Добавить тест")
     @PostMapping("/quiz")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('TEACHER')")
     public QuizDTO create(@RequestBody QuizDTO dto) {
         log.info("Добавить тест");

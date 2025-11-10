@@ -25,11 +25,11 @@ public record CourseDTO(
         @Schema(description = "Длительность курса", pattern = "10")
         @NotNull(message = "Длительность курса не может быть пустой")
         Integer duration,
-        @Schema(description = "Название категории", example = "1")
+        @Schema(description = "Название категории", example = "Первая категория")
         @Size(min = 1, max = 255, message = "Название категории должно содержать от 1 до 255 символов")
         @NotBlank(message = "Название категории не может быть пустым")
         String category,
-        @Schema(description = "Логин преподавателя", example = "1")
+        @Schema(description = "Логин преподавателя", example = "Вася")
         @Size(min = 1, max = 255, message = "Логин преподавателя должен содержать от 1 до 255 символов")
         @NotBlank(message = "Логин преподавателя не может быть пустым")
         String teacher) {

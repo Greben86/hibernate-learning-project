@@ -14,7 +14,8 @@ import java.util.List;
 public class QuizEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "quizzes_generator")
+    @SequenceGenerator(name = "quizzes_generator", sequenceName = "quizzes_seq", allocationSize = 1)
     private Long id;
 
     @Column(nullable = false)

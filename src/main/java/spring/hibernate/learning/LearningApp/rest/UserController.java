@@ -55,12 +55,15 @@ public class UserController {
 
     @Operation(summary = "Удаление пользователя")
     @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping(value = "/user/{id}/delete")
+    @DeleteMapping(value = "/user/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         log.info("Удаление пользователя");
-        userService.deleteUser(id);
-        return ResponseEntity.ok().build();
+        if (userService.getById(id) != null) {
+            userService.deleteUser(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/user/{id}/set-admin")

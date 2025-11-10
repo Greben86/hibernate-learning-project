@@ -25,7 +25,7 @@ public class SubmissionController {
 
     @Operation(summary = "Добавить ответ на задание")
     @PostMapping("/submission")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public SubmissionDTO submit(@RequestBody SubmissionDTO dto) {
         log.info("Добавить ответ на задание");
         return submissionService.addSubmission(dto);

@@ -18,7 +18,7 @@ services:
           cpus: '4'
           memory: 1G
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://backendservice:8080/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://backend-service:8080/actuator/health"]
       interval: 10s
       timeout: 5s
       retries: 5
