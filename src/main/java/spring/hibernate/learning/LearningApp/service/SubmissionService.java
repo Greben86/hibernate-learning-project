@@ -23,6 +23,7 @@ public class SubmissionService {
     private final UserRepository userRepository;
     private final SubmissionMapper mapper;
     private final UserService userService;
+    private final EmailNotificationService emailNotificationService;
 
     public List<SubmissionDTO> getAll() {
         return submissionRepository.findAll().stream()
@@ -67,6 +68,7 @@ public class SubmissionService {
                 .toList();
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public SubmissionDTO grade(Long id, FeedbackDTO dto) {
         if (!submissionRepository.existsById(id)) {
             throw new LogicException("Ответ ID="+id+" не найден");
@@ -75,6 +77,11 @@ public class SubmissionService {
         final var entity = submissionRepository.getReferenceById(id);
         entity.setScore(dto.score());
         entity.setFeedback(dto.feedback());
+
+        if (entity.getStudent().getProfile() != null) {
+            emailNotificationService.sendNotification(entity);
+        }
+
         return mapper.fromEntity(submissionRepository.save(entity));
     }
 }

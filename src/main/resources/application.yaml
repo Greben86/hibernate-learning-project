@@ -21,6 +21,21 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     locations: classpath:db/migration
+  mail:
+    host: "${SMTP_HOST:}"
+    port: "${SMTP_PORT:}"
+    username: "${EMAIL_USERNAME:}"
+    password: "${EMAIL_PASSWORD:}"
+    test-connection: false
+    properties:
+      health:
+        mail:
+          enabled: false
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enabled: true
 
 management:
   endpoints:

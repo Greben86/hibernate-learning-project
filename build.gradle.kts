@@ -30,6 +30,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
     implementation(group = "io.jsonwebtoken", name = "jjwt-api", version = jsonwebtokenVersion)
     implementation(group = "io.jsonwebtoken", name = "jjwt-impl", version = jsonwebtokenVersion)
     implementation(group = "io.jsonwebtoken", name = "jjwt-jackson", version = jsonwebtokenVersion)

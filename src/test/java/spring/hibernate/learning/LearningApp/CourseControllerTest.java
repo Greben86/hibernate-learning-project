@@ -10,10 +10,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import spring.hibernate.learning.LearningApp.service.EmailNotificationService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static spring.hibernate.learning.LearningApp.TestUtils.BEARER_PREFIX;
@@ -28,6 +30,9 @@ class CourseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockitoBean
+    private EmailNotificationService emailNotificationService;
 
     @Order(0)
     @DisplayName("Проверка, что MockMvc существует")
