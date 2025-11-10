@@ -1,7 +1,7 @@
 # hibernate-learning-project
 Веб-приложение на базе Spring Boot, которое использует Hibernate/JPA для доступа к базе данных PostgreSQL
 
-![Схема приложения](booking-in-spring-cloud.png)
+![Диаграмма базы данных](ERD_Diagram.png)
 
 ## Возможности
 - Управление курсами и контентом (создание курсов, модулей, уроков, привязка преподавателя к курсу, категоризация курсов).
@@ -10,23 +10,18 @@
 - Проведение тестирования (quiz): создание тестов с вопросами и вариантами ответов, прохождение тестов студентами, сохранение результатов.
 - Обработка ленивой загрузки: определить, в каких случаях доступ к связанным данным требует особого внимания (например, получение списка уроков курса вне сессии) и как вы будете решать эти ситуации (через настройку fetch = LAZY/EAGER, использование JOIN FETCH в запросах, или транзакционных методов сервиса).
 
-Gateway маршрутизирует запросы к сервисам по их serviceId через Eureka и прокидывает заголовок `Authorization` с JWT токеном
-После старта сервисы регистрируются в Eureka (`http://localhost:8761/eureka/`).
-
 ## Требования
 - Java 21+
 - Gradle
 - Docker compose
 
 ## Сборка и запуск
-1) Собрать проект:
-```bash
-gradle clean build
-```
-2) Запустить при помощи docker-compose:
+Запустить при помощи docker-compose (сборка приложения выполняется при сборке контейнера):
 ```bash
 docker compose up --detach
 ```
+При запуске поднимается база данных PostgreSQL 17 и PGAdmin для администрирования БД
+При старте приложения выполняется ряд SQL-скриптов для инициализации БД и наполнения данными при помощи Flyway
 
 ## Конфигурация JWT
 Используется симметричный ключ HMAC, секрет задаётся свойством `security.token.signing.key` в
@@ -124,10 +119,12 @@ curl -X GET http://localhost:8080/api/courses/enrollments \
 `GET` `/api/quizes` Список тестов
 
 ### REST API: Вопросы
+`POST` `/api/questions/student-answer` Добавить ответ студента
 `POST` `/api/questions/question` Добавить вопрос
 `POST` `/api/questions/answer` Добавить вариант
 `GET` `/api/questions/question/{id}` Вопрос по ID
 `DELETE` `/api/questions/question/{id}` Удалить вопрос
+`GET` `/api/questions/question/{id}/student-answers` Посмотреть ответы студента
 `GET` `/api/questions/question/{id}/answers` Список вариантов
 `GET` `/api/questions/answer/{id}` Вариант ответа по ID
 `DELETE` `/api/questions/answer/{id}` Удалить вариант
@@ -165,7 +162,9 @@ curl -X GET http://localhost:8080/api/courses/enrollments \
 - Swagger UI: `http://localhost:8080/swagger-ui/index.html#/`
 
 ## Тестирование
+У тестов свои настройки, для тестов поднимается база H2
 - UserControllerTest - тестирование операций с пользователями
 - CourseControllerTest - тестирование различных операций: добавление категорий, курсов, модулей, уроков, заданий, вариантов ответов заданий, тестов, вопросов тестов, ответов на вопросы
+- UserServiceTest - тест сервиса пользователей, этот тест демонстрирует что получим LazyInitializationException при попытке обратиться к Lazy коллекции вне сессии
   Каждый тест содержит проверку работы эндпоинтов, а также негативный сценарий
 
