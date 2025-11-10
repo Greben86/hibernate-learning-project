@@ -1,0 +1,43 @@
+package spring.hibernate.learning.LearningApp.entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.List;
+
+/**
+ * Модуль курса
+ */
+@Data
+@Entity
+@Table(name = "modules")
+public class ModuleEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "modules_generator")
+    @SequenceGenerator(name = "modules_generator", sequenceName = "modules_seq", allocationSize = 1)
+    private Long id;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false, columnDefinition = "int2")
+    private Integer orderIndex;
+
+    @Column
+    @Basic(fetch = FetchType.LAZY)
+    private String description;
+
+    // Каждый модуль принадлежит одному курсу
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
+    private CourseEntity course;
+
+    // Модуль содержит уроки
+    @OneToMany(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<LessonEntity> lessons;
+
+    // Модуль может содержать викторину
+    @OneToOne(mappedBy = "module", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private QuizEntity quiz;
+}

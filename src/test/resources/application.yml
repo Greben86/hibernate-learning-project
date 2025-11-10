@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: DEBUG
+
+spring:
+  application:
+    name: LearningApp
+  datasource:
+    url: "jdbc:h2:mem:exam_db"
+    username: "admin"
+    password: "admin"
+    driverClassName: org.h2.Driver
+  jpa:
+    open-in-view: on
+    defer-datasource-initialization: true
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: false
+  h2:
+    console:
+      enabled: false
+  sql:
+    init:
+      mode: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+security:
+  token:
+    signing:
+      key: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
+    expiration:
+      milliseconds: 144000000
