@@ -18,21 +18,6 @@ public final class TestUtils {
 
     private TestUtils() {}
 
-    public static String signUp(MockMvc mockMvc, String login, String password) throws Exception {
-        final var answerSignUp = mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/sign/up")
-                        .accept(MediaType.APPLICATION_JSON_VALUE)
-                        .content("{\"username\":\""+login+"\", \"password\":\""+password+"\"}")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.token").exists())
-                .andReturn()
-                .getResponse()
-                .getContentAsByteArray();
-
-        return getTokenFromAnswer(answerSignUp);
-    }
-
     public static String signIn(MockMvc mockMvc, String login, String password) throws Exception {
         final var answerSignIn = mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/sign/in")
                         .accept(MediaType.APPLICATION_JSON_VALUE)

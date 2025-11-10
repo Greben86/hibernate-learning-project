@@ -319,6 +319,44 @@ class CourseControllerTest {
     }
 
     @Order(12)
+    @DisplayName("Тест отправки варианта ответа")
+    @Test
+    void testSendQuizAnswer() throws Exception {
+        final var token = TestUtils.signIn(mockMvc, "Teacher", "password123");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/questions/student-answer")
+                        .header(HEADER_NAME, BEARER_PREFIX + token)
+                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .content("""
+                                {
+                                  "questionId": 1,
+                                  "optionId": 1
+                                }
+                                """)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.isCorrect").value("true"));
+    }
+
+    @Order(13)
+    @DisplayName("Тест просмотра ответов студента")
+    @Test
+    void testShowQuizAnswer() throws Exception {
+        final var token = TestUtils.signIn(mockMvc, "Teacher", "password123");
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/questions/question/1/student-answers")
+                        .header(HEADER_NAME, BEARER_PREFIX + token)
+                        .param("student", "Teacher")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].isCorrect").value("true"));
+    }
+
+    @Order(12)
     @DisplayName("Тест ошибки доступа")
     @Test
     void testForbidden() throws Exception {

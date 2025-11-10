@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import spring.hibernate.learning.LearningApp.dto.AnswerOptionDTO;
 import spring.hibernate.learning.LearningApp.dto.QuestionDTO;
+import spring.hibernate.learning.LearningApp.dto.QuizAnswerRequest;
+import spring.hibernate.learning.LearningApp.dto.QuizAnswerResponse;
 import spring.hibernate.learning.LearningApp.service.AnswerOptionService;
 import spring.hibernate.learning.LearningApp.service.QuestionService;
 
@@ -90,9 +93,28 @@ public class QuestionController {
     @Operation(summary = "Добавить вариант")
     @PostMapping("/answer")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('TEACHER')")
     public AnswerOptionDTO addSubmission(@RequestBody AnswerOptionDTO dto) {
         log.info("Добавить вариант");
         return answerOptionService.addQuestion(dto);
+    }
+
+    @Operation(summary = "Добавить ответ студента")
+    @PostMapping("/student-answer")
+    @ResponseStatus(HttpStatus.OK)
+    public QuizAnswerResponse addStudentAnswer(@RequestBody QuizAnswerRequest request) {
+        log.info("Добавить ответ студента");
+        return questionService.addAnswer(request);
+    }
+
+    @Operation(summary = "Посмотреть ответы студента")
+    @GetMapping("/question/{id}/student-answers")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('TEACHER')")
+    public List<QuizAnswerResponse> getStudentAnswers(@RequestParam String student,
+                                                      @PathVariable Long id) {
+        log.info("Посмотреть ответы студента");
+        return questionService.findQuizAnswers(student, id);
     }
 
     @Operation(summary = "Удалить вариант")
