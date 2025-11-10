@@ -74,88 +74,88 @@ curl -X GET http://localhost:8080/api/courses/enrollments \
 
 ## Основные эндпойнты
 ### REST API: Пользователь
-`PUT` `/api/users/user/{id}/set-admin` Добавить роль ADMIN пользователю
-`GET` `/api/users/user/profile` Просмотр профиля
-`PUT` `/api/users/user/profile` Редактирование профиля
-`PUT` `/api/users/user/edit` Редактирование пользователя
-`GET` `/api/users/user/{id}` Информация о пользователе
-`GET` `/api/users` Список всех пользователей, кроме администраторов
-`DELETE` `/api/users/user/{id}` Удаление пользователя
+* `PUT` `/api/users/user/{id}/set-admin` Добавить роль ADMIN пользователю
+* `GET` `/api/users/user/profile` Просмотр профиля
+* `PUT` `/api/users/user/profile` Редактирование профиля
+* `PUT` `/api/users/user/edit` Редактирование пользователя
+* `GET` `/api/users/user/{id}` Информация о пользователе
+* `GET` `/api/users` Список всех пользователей, кроме администраторов
+* `DELETE` `/api/users/user/{id}` Удаление пользователя
 
 ### REST API: Ответы на задания
-`PUT` `/api/submissions/submission/{id}/grade` Оценить решение
-`POST` `/api/submissions/submission` Добавить ответ на задание
-`GET` `/api/submissions/submission/{id}` Просмотреть решение по id
-`DELETE` `/api/submissions/submission/{id}` Удалить решение
-`GET` `/api/submissions/student/{studentId}` Получить все решения конкретного студента
-`GET` `/api/submissions/assignment/{assignmentId}` Получить все решения по конкретному заданию
+* `PUT` `/api/submissions/submission/{id}/grade` Оценить решение
+* `POST` `/api/submissions/submission` Добавить ответ на задание
+* `GET` `/api/submissions/submission/{id}` Просмотреть решение по id
+* `DELETE` `/api/submissions/submission/{id}` Удалить решение
+* `GET` `/api/submissions/student/{studentId}` Получить все решения конкретного студента
+* `GET` `/api/submissions/assignment/{assignmentId}` Получить все решения по конкретному заданию
 
 ### REST API: Управление курсами
-`PUT` `/api/courses/enrollment/{id}` Завершить запись на курс
-`DELETE` `/api/courses/enrollment/{id}` Удалить запись на курс
-`GET` `/api/courses/course/{id}/tag` Список тегов курса
-`PUT` `/api/courses/course/{id}/tag` Добавить тег для курса
-`DELETE` `/api/courses/course/{id}/tag` Убрать тег у курса
-`POST` `/api/courses/enrollment` Записаться на курс
-`POST` `/api/courses/course` Зарегистрировать курс
-`POST` `/api/courses/course/{id}/review` Добавить отзыв на курс
-`GET` `/api/courses/find` Поиск курсов по тегу
-`GET` `/api/courses/enrollments` Список записей на курсы
-`GET` `/api/courses/course/{id}` Курс по ID
-`DELETE` `/api/courses/course/{id}` Удалить курс
-`GET` `/api/courses/course/{id}/reviews` Посмотреть отзывы на курс
-`GET` `/api/courses` Список курсов
+* `PUT` `/api/courses/enrollment/{id}` Завершить запись на курс
+* `DELETE` `/api/courses/enrollment/{id}` Удалить запись на курс
+* `GET` `/api/courses/course/{id}/tag` Список тегов курса
+* `PUT` `/api/courses/course/{id}/tag` Добавить тег для курса
+* `DELETE` `/api/courses/course/{id}/tag` Убрать тег у курса
+* `POST` `/api/courses/enrollment` Записаться на курс
+* `POST` `/api/courses/course` Зарегистрировать курс
+* `POST` `/api/courses/course/{id}/review` Добавить отзыв на курс
+* `GET` `/api/courses/find` Поиск курсов по тегу
+* `GET` `/api/courses/enrollments` Список записей на курсы
+* `GET` `/api/courses/course/{id}` Курс по ID
+* `DELETE` `/api/courses/course/{id}` Удалить курс
+* `GET` `/api/courses/course/{id}/reviews` Посмотреть отзывы на курс
+* `GET` `/api/courses` Список курсов
 
 ### REST API: Аутентификация
-`PUT` `/api/auth/password/change` Смена пароля пользователя
-`POST` `/api/auth/sign/up` Регистрация пользователя
-`POST` `/api/auth/sign/in` Авторизация пользователя
+* `PUT` `/api/auth/password/change` Смена пароля пользователя
+* `POST` `/api/auth/sign/up` Регистрация пользователя
+* `POST` `/api/auth/sign/in` Авторизация пользователя
 
 ### REST API: Тесты
-`POST` `/api/quizes/submission` Добавить результат
-`POST` `/api/quizes/quiz` Добавить тест
-`GET` `/api/quizes/submission/{id}` Результат по ID
-`DELETE` `/api/quizes/submission/{id}` Удалить результат
-`GET` `/api/quizes/quiz/{id}` Тест по ID
-`DELETE` `/api/quizes/quiz/{id}` Удалить тест
-`GET` `/api/quizes/quiz/{id}/submissions` Список результатов
-`GET` `/api/quizes` Список тестов
+* `POST` `/api/quizes/submission` Добавить результат
+* `POST` `/api/quizes/quiz` Добавить тест
+* `GET` `/api/quizes/submission/{id}` Результат по ID
+* `DELETE` `/api/quizes/submission/{id}` Удалить результат
+* `GET` `/api/quizes/quiz/{id}` Тест по ID
+* `DELETE` `/api/quizes/quiz/{id}` Удалить тест
+* `GET` `/api/quizes/quiz/{id}/submissions` Список результатов
+* `GET` `/api/quizes` Список тестов
 
 ### REST API: Вопросы
-`POST` `/api/questions/student-answer` Добавить ответ студента
-`POST` `/api/questions/question` Добавить вопрос
-`POST` `/api/questions/answer` Добавить вариант
-`GET` `/api/questions/question/{id}` Вопрос по ID
-`DELETE` `/api/questions/question/{id}` Удалить вопрос
-`GET` `/api/questions/question/{id}/student-answers` Посмотреть ответы студента
-`GET` `/api/questions/question/{id}/answers` Список вариантов
-`GET` `/api/questions/answer/{id}` Вариант ответа по ID
-`DELETE` `/api/questions/answer/{id}` Удалить вариант
-`GET` `/api/questions` Список вопросов
+* `POST` `/api/questions/student-answer` Добавить ответ студента
+* `POST` `/api/questions/question` Добавить вопрос
+* `POST` `/api/questions/answer` Добавить вариант
+* `GET` `/api/questions/question/{id}` Вопрос по ID
+* `DELETE` `/api/questions/question/{id}` Удалить вопрос
+* `GET` `/api/questions/question/{id}/student-answers` Посмотреть ответы студента
+* `GET` `/api/questions/question/{id}/answers` Список вариантов
+* `GET` `/api/questions/answer/{id}` Вариант ответа по ID
+* `DELETE` `/api/questions/answer/{id}` Удалить вариант
+* `GET` `/api/questions` Список вопросов
 
 ### REST API: Модули
-`POST` `/api/modules/module` Добавить модуль
-`GET` `/api/modules/module/{id}` Задание по ID
-`DELETE` `/api/modules/module/{id}` Удалить модуль
-`GET` `/api/modules` Список модулей
+* `POST` `/api/modules/module` Добавить модуль
+* `GET` `/api/modules/module/{id}` Задание по ID
+* `DELETE` `/api/modules/module/{id}` Удалить модуль
+* `GET` `/api/modules` Список модулей
 
 ### REST API: Занятия
-`POST` `/api/lessons/lesson` Добавить занятие
-`GET` `/api/lessons/lesson/{id}` Занятие по ID
-`DELETE` `/api/lessons/lesson/{id}` Удалить занятие
-`GET` `/api/lessons` Список занятий
+* `POST` `/api/lessons/lesson` Добавить занятие
+* `GET` `/api/lessons/lesson/{id}` Занятие по ID
+* `DELETE` `/api/lessons/lesson/{id}` Удалить занятие
+* `GET` `/api/lessons` Список занятий
 
 ### REST API: Управление категориями
-`POST` `/api/categories/category` Зарегистрировать категорию
-`GET` `/api/categories/category/{id}` Категория по ID
-`DELETE` `/api/categories/category/{id}` Удалить категорию
-`GET` `/api/categories` Список категорий
+* `POST` `/api/categories/category` Зарегистрировать категорию
+* `GET` `/api/categories/category/{id}` Категория по ID
+* `DELETE` `/api/categories/category/{id}` Удалить категорию
+* `GET` `/api/categories` Список категорий
 
 ### REST API: Задания
-`POST` `/api/assignments/assignment` Добавить задание
-`GET` `/api/assignments/assignment/{id}` Задание по ID
-`DELETE` `/api/assignments/assignment/{id}` Удалить задание
-`GET` `/api/assignments` Список заданий
+* `POST` `/api/assignments/assignment` Добавить задание
+* `GET` `/api/assignments/assignment/{id}` Задание по ID
+* `DELETE` `/api/assignments/assignment/{id}` Удалить задание
+* `GET` `/api/assignments` Список заданий
 
 
 ## Консоль PGAdmin
